@@ -11,7 +11,7 @@ It's a great way to train your visual spatial memory!
 
 
 ## Wireframes
-![wireframe](<../code/myGame/images/wireframe1.png>)
+![wireframe](<../Users/danielpoon/code/myGame/images/wireframe1.png>)
 
 ## Technologies used
 JavaScript, HTML, CSS
