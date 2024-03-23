@@ -1,4 +1,4 @@
-git remote add origin https://git.generalassemb.ly/danielpoon/myGame.git
+
 
 # Daniel's concentration memory game
 
