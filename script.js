@@ -1,1 +1,0 @@
-const nice = console.log("hi")
