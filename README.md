@@ -3,17 +3,11 @@
 # Daniel's concentration memory game
 
 ## Description
-The game will have 4x4 squares (at least initially) and everytime a tile is clicked, it will flip and display an image. 
+The aim of the game is to turn 2 tiles over per turn. The player tries to remember what the underlying image looks like before it flips over again. If they are matching, they remain opend until the player can match everything. 
 
-As soon as a tile is clicked a countdown timer will start from 5 seconds.
+It's a great way to train your visual spatial memory!
 
-A second tile needs to be clicked before the timer runs out.
-
-If the timer runs out, the number of guesses counts up, and the clicked tile will flip over
-
-If the second tile flipped doesn't match the first, then both tiles remain open until the timer runs out, or until the player clicks another tile
-
-
+## Game rules
 
 
 ## Wireframes
@@ -37,7 +31,7 @@ As a player I will see a feedback of a Tick or a Cross, depending on whether the
 
 
 ## Roadmap
-- [ ] Basic game (player vs computer)
+- [ ] Basic game (1 player)
 - [ ] Keep track of number of guesses
 - [ ] Timer
 
@@ -48,5 +42,15 @@ As a player I will see a feedback of a Tick or a Cross, depending on whether the
 - [ ] Review HTML and CSS
 - [ ] Define Model variables and functions
 - [ ] Implement timer
-- [ ] Define Controller funcitons
+- [ ] Define Controller funcitons 
+
+## Pseudocode
+
+
+## Getting Started: 
+Insert link here
+
+## Next Steps
+- [ ] Implement difficulty levels ranging from (1-10)
+
 

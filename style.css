@@ -1,7 +1,19 @@
 * {
-    box-sizing: border-box
+    font-family: Arial, Helvetica, sans-serif;
+    box-sizing: border-box;
 }
 
-div {
-    color: red;
+body {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+
+}
+
+#board {
+  display: grid;
+  grid-template-columns: repeat(3, 20vmin);
+  grid-template-rows: repeat(3, 20vmin);
+  background-color: lightgrey;
+  border-radius: 5vmin;
 }
