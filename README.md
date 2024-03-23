@@ -37,16 +37,16 @@ As a player I will see a feedback of a Tick or a Cross, depending on whether the
 
 
 ## Roadmap
-- [] Basic game (player vs computer)
-- [] Keep track of number of guesses
-- [] Timer
+- [ ] Basic game (player vs computer)
+- [ ] Keep track of number of guesses
+- [ ] Timer
 
 
 ## TODO
-- [] Setup HTML
-- [] Setup CSS
-- [] Review HTML and CSS
-- [] Define Model variables and functions
-- [] Implement timer
-- [] Define Controller funcitons
+- [ ] Setup HTML
+- [ ] Setup CSS
+- [ ] Review HTML and CSS
+- [ ] Define Model variables and functions
+- [ ] Implement timer
+- [ ] Define Controller funcitons
 
