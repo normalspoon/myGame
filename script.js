@@ -6,26 +6,51 @@ const MAX_GUESSES = "MAX_GUESSES";
 
 /*----- app's state (variables) -----*/
 let playerChoice;
-let tilePosition;
+let tilePositions;
 let tileState; //where 0 is face down. 1 is face up.
 let guesses;
 let flippedTiles;
 
 /*----- cached element references -----*/
-const BOARD_EL = document.querySelectorAll("#tile");
-const BUTTON_EL = document.getElementById('actionButton')
+const TILES = document.querySelectorAll("#tile");
+const BUTTON = document.getElementById("actionButton");
 
 /*----- event listeners -----*/
-BOARD_EL.addEventListener('click', boardClickHandler);
-BUTTON_EL.addEventListener('click', buttonClickHandler);
+TILES.forEach((tile) => {
+  tile.addEventListener("click", boardClickHandler);
+});
+
+// BUTTON_EL.addEventListener('click',buttonClickHandler)
+
+// /*----- model functions -----*/
+function initBoard() {
+  tilePositions = [];
+  for (let i = 0; i < 16; i++) {
+    tilePositions.push("");
+  }
+  tileState = 0;
+  guesses = 0;
+  flippedTiles = 0;
+
+  render()
+}
+
+// /*----- controller functions -----*/
+
+function boardClickHandler(evt) {
+  evt.preventDefault();
+  if (evt.target.tagName !== "DIV") {
+    return;
+  }
+  console.log("I am flipped");
+}
+
+// }
+
+// function buttonClickHandler(evt) {
+//    console.log("button clicked")
+// }
+
+// *----- view functions -----*/
 
 
-/*----- functions -----*/
-
-
-/*----- model functions -----*/
-
-/*----- controller functions -----*/
-
-
-/*----- view functions -----*/
