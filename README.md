@@ -31,18 +31,27 @@ As a player I will see a feedback of a Tick or a Cross, depending on whether the
 
 
 ## Roadmap
-- [ ] Basic game (1 player)
+- [ ] Basic game (1 player). Play until win once
+- [ ] Basic game, play until win or start again any time
 - [ ] Keep track of number of guesses
 - [ ] Timer
+- [ ] Lose condition, when timer or guesses are maxed out 
 
 
 ## TODO
-- [ ] Setup HTML
-- [ ] Setup CSS
+- [x] Setup HTML
+- [x] Setup CSS
 - [ ] Review HTML and CSS
-- [ ] Define Model variables and functions
-- [ ] Implement timer
+- [x] Define Model variables and functions
 - [ ] Define Controller funcitons 
+- [x] Assign object properties to each tile
+- [ ] Change object properties when tile is clicked
+- [ ] Assign random pictures to the tiles
+- [ ] Assign 2 of a kind random pictures to the tiles
+- [ ] When 2 tiles are clicked, return to original position if incorrect
+- [ ] When 2 tiles are clicked, remain flipped if matching IMG
+
+- [ ] Implement timer
 
 ## Pseudocode
 

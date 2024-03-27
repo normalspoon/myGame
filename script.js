@@ -25,10 +25,6 @@ const TILES = document.querySelectorAll(".tile");
 const BUTTON = document.getElementById("actionButton");
 
 
-/*----- event listeners -----*/
-TILES.forEach((tile) => {
-  tile.addEventListener("click", boardClickHandler);
-});
 
 // /*----- model functions -----*/
 
@@ -36,39 +32,49 @@ TILES.forEach((tile) => {
 function populateBoard() {
   tilePositions = [];
   for (let i = 0; i < TILES.length; i++) {
-    let propertiesObjects = {};
-    properties.forEach(function (property) {
-      propertiesObjects[property] = "";
-    });
-    propertiesObjects["id"] = (i +1);
-    propertiesObjects["state"] = "0";
+    let propertiesObject = {
+        id: TILES[i].id,
+        state: "0",
+        img: "",
+    }
+    // properties.forEach(function (property) {
+    //   propertiesObject[property] = "";
+    // });
+    // propertiesObject["id"] = (i +1);
+    // propertiesObject["state"] = "0";
     // propertiesOBjects["img"] = Math.floor(Math.random()* IMG_LIST.length)
-    tilePositions.push(propertiesObjects);
+    tilePositions.push(propertiesObject);
   }
-  return tilePositions;
 }
-let properties = ["state", "img", "id"];
+// let properties = ["state", "img", "id"];
 populateBoard()
 console.log(tilePositions);
 
+/*----- event listeners -----*/
+TILES.forEach((tile) => {
+    tile.addEventListener("click", boardClickHandler);
+  });
 
 
-
-// tilePositions.forEach(function(tile, index){
+tilePositions.forEach(function(tile, index){
     
-// })
-// /*----- controller functions -----*/
+})
+/*----- controller functions -----*/
 
 function boardClickHandler(evt) {
-  evt.preventDefault();
-  if (evt.target.tagName !== "DIV") {
-    return;
-  }
-}
-// }
+//   evt.preventDefault();
+//   if (evt.target.tagName !== "DIV") {
+//     return;
+//   }
+  const clickedTileID = evt.target.id;
+  const clickedTile = tilePositions.find(tile => tile.id === clickedTileID)
 
-// function buttonClickHandler(evt) {
-//    console.log("button clicked")
-// }
+//   if (clickedTile) { // saftey precaution
+  console.log(clickedTile)
+//   }
+}
+
+
+
 
 // *----- view functions -----*/
