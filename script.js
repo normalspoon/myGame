@@ -59,11 +59,12 @@ BUTTON.addEventListener("click", buttonClickHandler);
 function buttonClickHandler(evt) {
   
   for (const tile of TILES) {
-    const randomImg = Math.floor(Math.random()* IMG_LIST.length);
-    tile.innerText = randomImg
+    const randomImgIndex = Math.floor(Math.random()* IMG_LIST.length);
+    tile.innerText = randomImgIndex
   }
 }
 
+let firstPick = 8;
 function boardClickHandler(evt) {
   //   evt.preventDefault();
   //   if (evt.target.tagName !== "DIV") {
