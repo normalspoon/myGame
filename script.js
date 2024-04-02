@@ -55,34 +55,39 @@ TILES.forEach((tile) => {
 BUTTON.addEventListener("click", buttonClickHandler);
 
 /*----- controller functions -----*/
-
+let imgList16 = [];
 function buttonClickHandler(evt) {
-  
   // for (const tile of TILES) {
   //   const randomImgIndex = Math.floor(Math.random()* IMG_LIST.length);
   //   tile.innerText = randomImgIndex
   // }
 
-  let imgList16 = []
+  imgList16 = [];
   for (const img of IMG_LIST) {
-    imgList16.push(img)
-    imgList16.push(img)
+    imgList16.push(img);
+    imgList16.push(img);
   }
-  console.log(imgList16)
-
-  function shuffle(array) {
-    let currentIndex = array.length;
-    while (currentIndex !=0) {
-      let randomIndex = Math.floor(Math.random() * imgList16.length);
-      currentIndex--;
-      [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]]
-    }
-  }
-
-  shuffle(imgList16);
-  console.log(imgList16)
-
+  // console.log(imgList16);
+  // shuffle(imgList16);
+  // console.log(imgList16);
 }
+
+function shuffle(array) {
+  let currentIndex = array.length;
+  while (currentIndex != 0) {
+    let randomIndex = Math.floor(Math.random() * imgList16.length);
+    currentIndex--;
+    [array[currentIndex], array[randomIndex]] = [
+      array[randomIndex],
+      array[currentIndex],
+    ];
+  }
+}
+
+buttonClickHandler()
+shuffle(imgList16)
+console.log(imgList16)
+
 
 let firstPick = 8;
 function boardClickHandler(evt) {
@@ -94,12 +99,19 @@ function boardClickHandler(evt) {
   const clickedTile = tilePositions.find((tile) => tile.id === clickedTileID);
   console.log(clickedTile);
 
-  currentClickedTile = clickedTile.state = "1";
+  clickedTile.state = "1";
   console.log(
     "after click TILE ID " + clickedTileID + " state changed to",
-    currentClickedTile);
-
-
+    clickedTile.state
+  );
+  if (clickedTile.img !== '') {
+   return
+} else {
+  clickedTile.img = imgList16.shift()
+}
+  
+  console.log("after click Tile Img" + clickedTileID + "inserted " + clickedTile.img)
+  console.log(tilePositions)
 }
 
 // *----- view functions -----*/
