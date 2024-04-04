@@ -14,12 +14,14 @@ const IMG_LIST = [
 ];
 const TILE_NUMBER = "TILE_NUMBER";
 
+
 /*----- app's state (variables) -----*/
 let playerChoice;
 let tilePositions;
 let guesses;
 let tileProperties;
-
+let previousClickedTile = null;
+let clickedTile = null;
 /*----- cached element references -----*/
 const TILES = document.querySelectorAll(".tile");
 const BUTTON = document.getElementById("actionButton");
@@ -58,18 +60,19 @@ BUTTON.addEventListener("click", buttonClickHandler);
 /*----- controller functions -----*/
 let imgList16 = [];
 function buttonClickHandler(evt) {
-  // for (const tile of TILES) {
-  //   const randomImgIndex = Math.floor(Math.random()* IMG_LIST.length);
-  //   tile.innerText = randomImgIndex
-  // }
 
   imgList16 = [];
   for (const img of IMG_LIST) {
     imgList16.push(img);
     imgList16.push(img);
   }
-}
+  shuffle(imgList16);
+  console.log(imgList16);
+  for (i = 0; i < 16; i++) {
+    tilePositions[i].img = imgList16.shift()
+  }
 
+}
 
 function shuffle(array) {
   let currentIndex = array.length;
@@ -84,26 +87,28 @@ function shuffle(array) {
 }
 
 buttonClickHandler();
-shuffle(imgList16);
-console.log(imgList16);
 
 
-guesses = 0
+guesses = 0;
 function boardClickHandler(evt) {
-    evt.preventDefault();
-    if (evt.target.tagName !== "DIV") {
-      return;
-    }
-  
-  function addGuessNumber() {
-  guesses += 1 
-  return guesses
+  evt.preventDefault();
+  if (evt.target.tagName !== "DIV") {
+    return;
   }
-  guesses = addGuessNumber()
-  guessesDisplay.innerText = `GUESSES: ${guesses}`
- 
+  
+  if (clickedTile && previousClickedTile) {
+    return
+  } 
+
+  function addGuessNumber() {
+    guesses += 1;
+    return guesses;
+  }
+  guesses = addGuessNumber();
+  guessesDisplay.innerText = `GUESSES: ${guesses}`;
+
   const clickedTileID = evt.target.id;
-  const clickedTile = tilePositions.find((tile) => tile.id === clickedTileID);
+  clickedTile = tilePositions.find((tile) => tile.id === clickedTileID);
   console.log(clickedTile);
 
   clickedTile.state = "true";
@@ -113,37 +118,52 @@ function boardClickHandler(evt) {
     clickedTile.state
   );
 
-  if (clickedTile.img !== "") {
-    return;
-  } else {
-    clickedTile.img = imgList16.shift();
-  }
+  // if (clickedTile.img !== "") {
+  //   return;
+  // } else {
+  //   clickedTile.img = imgList16.shift();
+  // }
 
-  console.log(
-    "after click Tile Img " + clickedTileID + "inserted " + clickedTile.img
-  );
+  // console.log(
+  //   "after click Tile Img " + clickedTileID + "inserted " + clickedTile.img
+  // );
   console.log(tilePositions);
   console.log(tilePositions[clickedTileID - 1]);
   console.log(clickedTile.state);
- 
- 
+
   // *----- view functions -----*/
-tilePositions.forEach(tile => {
+
   // Get the corresponding div element by ID
-  const TILE_EL = document.getElementById(tile.id);
+  const TILE_EL = document.getElementById(clickedTile.id);
   // console.log(TILE_EL)
-  if (tile.img !== '') {
-      // Set the background image of the div to the image URL
-      TILE_EL.style.backgroundImage = `url(${tile.img})`;
-  }
-  if (tile.state === 'false') {
-
+  if (clickedTile.img !== "") {
+    // Set the background image of the div to the image URL
+    TILE_EL.style.backgroundImage = `url(${clickedTile.img})`;
   }
 
-});
-
-
-
-
+  if (previousClickedTile !== null) {
+    //2nd stage
+    const PREV_TILE_EL = document.getElementById(previousClickedTile.id)
+    if (clickedTile.img === previousClickedTile.img) {
+    //2nd stage both matching
+      previousClickedTile.state = true;
+      clickedTile.state = true;
+      previousClickedTile = null;
+      clickedTile = null;
+    } else {
+    //2nd stage not matching
+      setTimeout(() => {
+        previousClickedTile.state = false;
+        clickedTile.state = false;
+        previousClickedTile = null;
+        clickedTile = null;
+        TILE_EL.style.backgroundImage = "";
+        PREV_TILE_EL.style.backgroundImage = "";
+      }, 2000);
+    }
+  } else {
+    //first stage
+    previousClickedTile = clickedTile;
+    clickedTile = null;
+  }
 }
-
