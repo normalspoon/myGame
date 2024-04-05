@@ -11,7 +11,7 @@ It's a great way to train your visual spatial memory!
 
 
 ## Wireframes
-![img](../images/wireframe1.png)
+![wireframe](/images/wireframe1.png)
 
 ## Technologies used
 JavaScript, HTML, CSS
