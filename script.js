@@ -1,4 +1,4 @@
-/*----- constants -----*/
+
 const PLAYER = "PLAYER";
 const TILE_IMAGES = "TILE_IMAGES";
 const MAX_GUESSES = "MAX_GUESSES";
@@ -14,7 +14,7 @@ const IMG_LIST = [
 ];
 const TILE_NUMBER = "TILE_NUMBER";
 
-/*----- app's state (variables) -----*/
+
 let playerChoice;
 let tilePositions;
 let guesses;
@@ -22,7 +22,7 @@ let tileProperties;
 let previousClickedTile = null;
 let clickedTile = null;
 let timer;
-/*----- cached element references -----*/
+
 const TILES = document.querySelectorAll(".tile");
 const BUTTON = document.getElementById("actionButton");
 const guessesDisplay = document.getElementById("attempts");
@@ -32,7 +32,7 @@ const modal = document.querySelector(".modal")
 const overlay = document.querySelector(".overlay")
 
 
-// /*----- model functions -----*/
+
 function modalButtonStart() {
 buttonClickHandler()
 modal.classList.add("hidden")
@@ -65,21 +65,16 @@ function populateBoard() {
       state: "false",
       img: "",
     };
-    // properties.forEach(function (property) {
-    //   propertiesObject[property] = "";
-    // });
-    // propertiesObject["id"] = (i +1);
-    // propertiesObject["state"] = "0";
-    // propertiesOBjects["img"] = Math.floor(Math.random()* IMG_LIST.length)
+  
     tilePositions.push(propertiesObject);
   }
 }
-// let properties = ["state", "img", "id"];
+
 populateBoard();
 console.log(tilePositions);
 
 
-/*----- event listeners -----*/
+
 TILES.forEach((tile) => {
   tile.addEventListener("click", boardClickHandler);
 });
@@ -87,7 +82,7 @@ TILES.forEach((tile) => {
 BUTTON.addEventListener("click", buttonClickHandler);
 MODAL_BUTTON.addEventListener("click", modalButtonStart)
 
-/*----- controller functions -----*/
+
 
 function resetGame() {
   for (i = 0; i < 16; i++) {
@@ -100,7 +95,7 @@ function resetGame() {
     });
   }
 }
-/*----- controller functions -----*/
+
 let imgList16 = [];
 function buttonClickHandler(evt) {
   imgList16 = [];
@@ -115,7 +110,7 @@ function buttonClickHandler(evt) {
   }
   resetGame();
  
-  //start timer
+
   clearInterval(timer)
   let count = 60;
   timer = setInterval(function() {
@@ -152,6 +147,7 @@ function boardClickHandler(evt) {
   if (clickedTile && previousClickedTile) {
     return;
   }
+  
 
   function addGuessNumber() {
     guesses += 0.5;
@@ -167,32 +163,24 @@ function boardClickHandler(evt) {
 
   clickedTile.state = "true";
 
-  
-  console.log(tilePositions);
-  console.log(tilePositions[clickedTileID - 1]);
-  console.log(clickedTile.state);
-
-  // *----- view functions -----*/
-
-  // Get the corresponding div element by ID
   const TILE_EL = document.getElementById(clickedTile.id);
-  // console.log(TILE_EL)
-  if (clickedTile.img !== "") {
-    // Set the background image of the div to the image URL
+
+  if (clickedTile.img !== null) {
+   
     TILE_EL.style.backgroundImage = `url(${clickedTile.img})`;
   }
 
   if (previousClickedTile !== null) {
-    //2nd stage
+ 
     const PREV_TILE_EL = document.getElementById(previousClickedTile.id);
-    if (clickedTile.img === previousClickedTile.img) {
-      //2nd stage both matching
+    if (clickedTile.img === previousClickedTile.img && clickedTile.id !== previousClickedTile.id ) {
+
       previousClickedTile.state = true;
       clickedTile.state = true;
       previousClickedTile = null;
       clickedTile = null;
+
     } else {
-      //2nd stage not matching
       setTimeout(() => {
         previousClickedTile.state = false;
         clickedTile.state = false;
@@ -203,11 +191,10 @@ function boardClickHandler(evt) {
       }, 1000);
     }
   } else {
-    //first stage
     previousClickedTile = clickedTile;
     clickedTile = null;
   }
-  // Lose or win conditions:
+
   let everyTileMatches = true
   for (i = 0; i < 16; i++) {
     if (tilePositions[i].state !== true) {
@@ -217,7 +204,7 @@ function boardClickHandler(evt) {
   }
   if (everyTileMatches) {
     console.log("you win")
-    openYouWinModal()
+    openYouWinModal() 
   }
   if (guesses === 16.5) {
     resetGame()
