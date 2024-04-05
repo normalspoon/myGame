@@ -71,7 +71,6 @@ function populateBoard() {
 }
 
 populateBoard();
-console.log(tilePositions);
 
 
 
@@ -104,7 +103,6 @@ function buttonClickHandler(evt) {
     imgList16.push(img);
   }
   shuffle(imgList16);
-  console.log(imgList16);
   for (i = 0; i < 16; i++) {
     tilePositions[i].img = imgList16.shift();
   }
@@ -159,7 +157,7 @@ function boardClickHandler(evt) {
 
   const clickedTileID = evt.target.id;
   clickedTile = tilePositions.find((tile) => tile.id === clickedTileID);
-  console.log(clickedTile);
+  
 
   clickedTile.state = "true";
 
@@ -207,8 +205,8 @@ function boardClickHandler(evt) {
     } 
   }
   if (everyTileMatches) {
-    console.log("you win")
-    openYouWinModal() 
+    openYouWinModal()
+    clearInterval(timer)
   }
   if (guesses === 16.5) {
     resetGame()

@@ -102,8 +102,6 @@ background-size: cover;
     background: rgba(0,0,0,0.5);
     backdrop-filter: blur(4px);
     z-index: 1;
-    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif, Helvetica, sans-serif, Haettenschweiler, 'Arial Narrow Bold', sans-serif
-
 }
 
 #wrong{
@@ -111,6 +109,7 @@ background-size: cover;
     padding: 20px;
     font-size: 20px;
     color: red;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
 }
 
 .hidden {
@@ -124,8 +123,6 @@ background-size: cover;
     padding: 5px;
     margin: auto;
     font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif, Helvetica, sans-serif, Haettenschweiler, 'Arial Narrow Bold', sans-serif
-
-
 }
 h3 {
     margin: 0;
