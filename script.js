@@ -21,12 +21,41 @@ let guesses;
 let tileProperties;
 let previousClickedTile = null;
 let clickedTile = null;
+let timer;
 /*----- cached element references -----*/
 const TILES = document.querySelectorAll(".tile");
 const BUTTON = document.getElementById("actionButton");
 const guessesDisplay = document.getElementById("attempts");
+const countDownDisplay = document.getElementById("timer");
+const MODAL_BUTTON = document.querySelector(".btn")
+const modal = document.querySelector(".modal")
+const overlay = document.querySelector(".overlay")
+
 
 // /*----- model functions -----*/
+function modalButtonStart() {
+buttonClickHandler()
+modal.classList.add("hidden")
+overlay.classList.add("hidden")
+}
+
+function openYouWinModal() {
+  modal.classList.remove("hidden")
+  overlay.classList.add("hidden")
+  const gameOverHeading = document.querySelector("h3") 
+  const gameOverText = document.querySelector("p")
+  gameOverHeading.innerText = "CONGRATS You Won!"
+  gameOverText.innerText = "Click START to play again!"
+}
+
+function openGameOverModal() {
+  modal.classList.remove("hidden")
+  overlay.classList.remove("hidden")
+  const gameOverHeading = document.querySelector("h3") 
+  const gameOverText = document.querySelector("p")
+  gameOverHeading.innerText = "You Lost!"
+  gameOverText.innerText = "Click START to try again!"
+}
 
 function populateBoard() {
   tilePositions = [];
@@ -49,13 +78,28 @@ function populateBoard() {
 populateBoard();
 console.log(tilePositions);
 
+
 /*----- event listeners -----*/
 TILES.forEach((tile) => {
   tile.addEventListener("click", boardClickHandler);
 });
 
 BUTTON.addEventListener("click", buttonClickHandler);
+MODAL_BUTTON.addEventListener("click", modalButtonStart)
 
+/*----- controller functions -----*/
+
+function resetGame() {
+  for (i = 0; i < 16; i++) {
+    const TILES = document.querySelectorAll(".tile");
+    guesses = 0 
+    guessesDisplay.innerText = `GUESSES: ${guesses}`;
+    tilePositions[i].state = false;
+    TILES.forEach((TILE) => {
+      TILE.style.backgroundImage = "";
+    });
+  }
+}
 /*----- controller functions -----*/
 let imgList16 = [];
 function buttonClickHandler(evt) {
@@ -69,17 +113,20 @@ function buttonClickHandler(evt) {
   for (i = 0; i < 16; i++) {
     tilePositions[i].img = imgList16.shift();
   }
-  //reset Game
-  function resetGame() {
-    for (i = 0; i < 16; i++) {
-      const TILES = document.querySelectorAll(".tile");
-      tilePositions[i].state = false;
-      TILES.forEach((TILE) => {
-        TILE.style.backgroundImage = "";
-      });
-    }
-  }
   resetGame();
+ 
+  //start timer
+  clearInterval(timer)
+  let count = 60;
+  timer = setInterval(function() {
+    count --;
+    countDownDisplay.innerText = `TIMER: ${count}`;
+    if (count === 0) {
+      clearInterval(timer);
+      openGameOverModal()
+    }
+  }, 1000);
+
 }
 
 function shuffle(array) {
@@ -94,7 +141,6 @@ function shuffle(array) {
   }
 }
 
-buttonClickHandler();
 
 guesses = 0;
 function boardClickHandler(evt) {
@@ -121,20 +167,7 @@ function boardClickHandler(evt) {
 
   clickedTile.state = "true";
 
-  console.log(
-    "after click TILE ID " + clickedTileID + " state changed to",
-    clickedTile.state
-  );
-
-  // if (clickedTile.img !== "") {
-  //   return;
-  // } else {
-  //   clickedTile.img = imgList16.shift();
-  // }
-
-  // console.log(
-  //   "after click Tile Img " + clickedTileID + "inserted " + clickedTile.img
-  // );
+  
   console.log(tilePositions);
   console.log(tilePositions[clickedTileID - 1]);
   console.log(clickedTile.state);
@@ -174,4 +207,24 @@ function boardClickHandler(evt) {
     previousClickedTile = clickedTile;
     clickedTile = null;
   }
+  // Lose or win conditions:
+  let everyTileMatches = true
+  for (i = 0; i < 16; i++) {
+    if (tilePositions[i].state !== true) {
+      everyTileMatches = false;
+      break;
+    } 
+  }
+  if (everyTileMatches) {
+    console.log("you win")
+    openYouWinModal()
+  }
+  if (guesses === 16.5) {
+    resetGame()
+    openGameOverModal()
+  }
 }
+
+
+
+

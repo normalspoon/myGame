@@ -9,7 +9,7 @@
 <body>
     <h1>Concentration Memory Game</h1>
     <div id="attempts">GUESSES: </div>
-    <div id="timer"></div>
+    <div id="timer">TIMER:</div>
     <main id="board">
         <div class = "tile" id ="1"></div>
         <div class = "tile" id ="2"></div>
@@ -28,7 +28,24 @@
         <div class = "tile" id ="15"></div>
         <div class = "tile" id ="16"></div>
     </main>
-    <button id="actionButton"></button>
+    <button id="actionButton">RESTART</button>
+
+    <section class="modal">
+    <div>
+        <h3> Instructions </h3>
+        <p>
+            Click on a tile to flip it over, revealing a cute cat. Click another tile to flip another.
+            If the images match, they will remain flipped over. If they don't match, they will flip face-down again. 
+            Try use your memory to match all the tiles before the timer runs out!
+            Be careful of how many tiles you choose, if you use 16 guesses, you lose the game!
+        </p>
+    </div>
+    <button class="btn">Start!</button>
+    </section>
+
+    <div class="overlay"></div>
+    <button class="btn btn-open">Instructions</button>
+
     <script src="./script.js"></script>
 </body>
 </html>
