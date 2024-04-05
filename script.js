@@ -181,13 +181,17 @@ function boardClickHandler(evt) {
       clickedTile = null;
 
     } else {
+      const WRONG_DISPLAY = document.getElementById("wrong")
+      WRONG_DISPLAY.innerText = "WRONG"
       setTimeout(() => {
+        
         previousClickedTile.state = false;
         clickedTile.state = false;
         previousClickedTile = null;
         clickedTile = null;
         TILE_EL.style.backgroundImage = "";
         PREV_TILE_EL.style.backgroundImage = "";
+        WRONG_DISPLAY.innerText = "";
       }, 1000);
     }
   } else {

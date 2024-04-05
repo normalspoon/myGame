@@ -31,9 +31,8 @@ body {
 }
 #attempts {
     height: 30px;
-    width: 300px;
-    align-self: flex-start;
-    margin-left: 60px;
+    width: 200px;
+    align-self: center;
     font-family: "Bungee Spice", sans-serif;
     font-weight: 400;
     font-style: normal;
@@ -45,9 +44,7 @@ body {
 
 #timer {
     height: 30px;
-    width: 300px;
-    align-self: flex-start;
-    margin-left: 60px;
+    width: 200px;
     font-family: "Bungee Spice", sans-serif;
     font-weight: 400;
     font-style: normal;
@@ -107,6 +104,13 @@ background-size: cover;
     z-index: 1;
     font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif, Helvetica, sans-serif, Haettenschweiler, 'Arial Narrow Bold', sans-serif
 
+}
+
+#wrong{
+    height: 10px;
+    padding: 20px;
+    font-size: 20px;
+    color: red;
 }
 
 .hidden {
