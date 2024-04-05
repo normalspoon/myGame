@@ -14,7 +14,6 @@ const IMG_LIST = [
 ];
 const TILE_NUMBER = "TILE_NUMBER";
 
-
 /*----- app's state (variables) -----*/
 let playerChoice;
 let tilePositions;
@@ -60,7 +59,6 @@ BUTTON.addEventListener("click", buttonClickHandler);
 /*----- controller functions -----*/
 let imgList16 = [];
 function buttonClickHandler(evt) {
-
   imgList16 = [];
   for (const img of IMG_LIST) {
     imgList16.push(img);
@@ -69,9 +67,19 @@ function buttonClickHandler(evt) {
   shuffle(imgList16);
   console.log(imgList16);
   for (i = 0; i < 16; i++) {
-    tilePositions[i].img = imgList16.shift()
+    tilePositions[i].img = imgList16.shift();
   }
-
+  //reset Game
+  function resetGame() {
+    for (i = 0; i < 16; i++) {
+      const TILES = document.querySelectorAll(".tile");
+      tilePositions[i].state = false;
+      TILES.forEach((TILE) => {
+        TILE.style.backgroundImage = "";
+      });
+    }
+  }
+  resetGame();
 }
 
 function shuffle(array) {
@@ -88,24 +96,24 @@ function shuffle(array) {
 
 buttonClickHandler();
 
-
 guesses = 0;
 function boardClickHandler(evt) {
   evt.preventDefault();
   if (evt.target.tagName !== "DIV") {
     return;
   }
-  
+
   if (clickedTile && previousClickedTile) {
-    return
-  } 
+    return;
+  }
 
   function addGuessNumber() {
-    guesses += 1;
+    guesses += 0.5;
     return guesses;
   }
   guesses = addGuessNumber();
-  guessesDisplay.innerText = `GUESSES: ${guesses}`;
+  const guessesInt = Math.trunc(guesses);
+  guessesDisplay.innerText = `GUESSES: ${guessesInt}`;
 
   const clickedTileID = evt.target.id;
   clickedTile = tilePositions.find((tile) => tile.id === clickedTileID);
@@ -143,15 +151,15 @@ function boardClickHandler(evt) {
 
   if (previousClickedTile !== null) {
     //2nd stage
-    const PREV_TILE_EL = document.getElementById(previousClickedTile.id)
+    const PREV_TILE_EL = document.getElementById(previousClickedTile.id);
     if (clickedTile.img === previousClickedTile.img) {
-    //2nd stage both matching
+      //2nd stage both matching
       previousClickedTile.state = true;
       clickedTile.state = true;
       previousClickedTile = null;
       clickedTile = null;
     } else {
-    //2nd stage not matching
+      //2nd stage not matching
       setTimeout(() => {
         previousClickedTile.state = false;
         clickedTile.state = false;
@@ -159,7 +167,7 @@ function boardClickHandler(evt) {
         clickedTile = null;
         TILE_EL.style.backgroundImage = "";
         PREV_TILE_EL.style.backgroundImage = "";
-      }, 2000);
+      }, 1000);
     }
   } else {
     //first stage
