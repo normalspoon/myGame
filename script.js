@@ -134,7 +134,7 @@ function boardClickHandler(evt) {
     return;
   }
   const clickedTileID = evt.target.id;
-  const clickedTile = gTilePositions.find((tile) => tile.id === clickedTileID)
+  const clickedTile = gTilePositions.find((tile) => tile.id === clickedTileID);
 
   if (clickedTile.state === true) {
     return;
@@ -147,8 +147,7 @@ function boardClickHandler(evt) {
   gGuesses = addGuessNumber();
   const guessesInt = Math.trunc(gGuesses);
   guessesDisplay.innerText = `GUESSES: ${guessesInt}`;
- 
-  
+
   gClickedTile = clickedTile;
   gClickedTile.state = true;
 

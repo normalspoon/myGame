@@ -7,6 +7,11 @@ The aim of the game is to turn 2 tiles over per turn. The player tries to rememb
 
 It's a great way to train your visual spatial memory!
 
+## Screenshots
+![intro](/images/intro.png)
+![wrong](/images/wrong.png)
+![lose](/images/lose.png)
+
 ## Game rules
 Click the tiles to flip them up. 
 Flip up two tiles at a time. If the pictures match, well done they stay open. 
@@ -55,17 +60,11 @@ As a player I will see a countdown timer start when I press start. If I don't co
 - [x] Assign 2 of a kind random pictures to the tiles
 - [x] When 2 tiles are clicked, return to original position if incorrect
 - [x] When 2 tiles are clicked, remain flipped if matching IMG
-
-- [ ] Implement timer
-
-## Screenshots
-![intro](/images/intro.png)
-![wrong](/images/wrong.png)
-![lose](/images/lose.png)
-
+- [x] Implement timer 
 
 
 ## Getting Started: 
+Follow the link below to play the game. Instructions will begin when you click the link.
 (https://normalspoon.github.io/myGame/)
 
 ## Next Steps (if have time)

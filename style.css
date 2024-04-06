@@ -3,7 +3,7 @@
     box-sizing: border-box;
 }
 
- h1 {
+h1 {
   font-family: "Honk", system-ui;
   font-optical-sizing: auto;
   font-weight: 200;
@@ -13,9 +13,7 @@
   font-variation-settings:
     "MORF" 30,
     "SHLN" 100;
-    }
-
-      
+}
 
 body {
     display: flex;
@@ -37,9 +35,6 @@ body {
     font-weight: 400;
     font-style: normal;
     font-size: 30px;
-   
-
-   
 }
 
 #timer {
@@ -49,7 +44,6 @@ body {
     font-weight: 400;
     font-style: normal;
     font-size: 30px;
-    
 }
 
 #board {
@@ -59,16 +53,14 @@ body {
   height: 400px;
   width: 400px;
   margin-top: 30px;
-  
-  
 }
-.tile {
-height: 90px;
-width: 90px;
-background-color: #3bba9c;
-background-image: url("");
-background-size: cover;
 
+.tile {
+    height: 90px;
+    width: 90px;
+    background-color: #3bba9c;
+    background-image: url("");
+    background-size: cover;
 }
 
 #actionButton {
@@ -76,7 +68,6 @@ background-size: cover;
     width: 100px;
     margin: 20px;
     font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif, Helvetica, sans-serif, Haettenschweiler, 'Arial Narrow Bold', sans-serif
-
 }
 
 .modal{
