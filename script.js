@@ -13,12 +13,11 @@ const IMG_LIST = [
 ];
 const TILE_NUMBER = "TILE_NUMBER";
 
-let playerChoice;
-let tilePositions;
-let guesses;
-let tileProperties;
-let previousClickedTile = null;
-let clickedTile = null;
+let gTilePositions;
+let gGuesses;
+let gTileProperties;
+let gPreviousClickedTile = null;
+let gClickedTile = null;
 let timer;
 
 const TILES = document.querySelectorAll(".tile");
@@ -54,7 +53,7 @@ function openGameOverModal() {
 }
 
 function populateBoard() {
-  tilePositions = [];
+  gTilePositions = [];
   for (let i = 0; i < TILES.length; i++) {
     let propertiesObject = {
       id: TILES[i].id,
@@ -62,7 +61,7 @@ function populateBoard() {
       img: "",
     };
 
-    tilePositions.push(propertiesObject);
+    gTilePositions.push(propertiesObject);
   }
 }
 
@@ -77,10 +76,10 @@ MODAL_BUTTON.addEventListener("click", modalButtonStart);
 
 function resetGame() {
   for (i = 0; i < 16; i++) {
-    guesses = 0;
+    gGuesses = 0;
     const TILES = document.querySelectorAll(".tile");
-    guessesDisplay.innerText = `GUESSES: ${guesses}`;
-    tilePositions[i].state = false;
+    guessesDisplay.innerText = `GUESSES: ${gGuesses}`;
+    gTilePositions[i].state = false;
     TILES.forEach((TILE) => {
       TILE.style.backgroundImage = "";
     });
@@ -97,7 +96,7 @@ function buttonClickHandler(evt) {
   }
   shuffle(imgList16);
   for (i = 0; i < 16; i++) {
-    tilePositions[i].img = imgList16.shift();
+    gTilePositions[i].img = imgList16.shift();
   }
   resetGame();
 
@@ -124,68 +123,72 @@ function shuffle(array) {
   }
 }
 
-guesses = 0;
+gGuesses = 0;
 function boardClickHandler(evt) {
   evt.preventDefault();
   if (evt.target.tagName !== "DIV") {
     return;
   }
-  
-  if (clickedTile && previousClickedTile) {
+
+  if (gClickedTile && gPreviousClickedTile) {
+    return;
+  }
+  const clickedTileID = evt.target.id;
+  const clickedTile = gTilePositions.find((tile) => tile.id === clickedTileID)
+
+  if (clickedTile.state === true) {
     return;
   }
 
-
   function addGuessNumber() {
-    guesses += 0.5;
-    return guesses;
+    gGuesses += 0.5;
+    return gGuesses;
   }
-  guesses = addGuessNumber();
-  const guessesInt = Math.trunc(guesses);
+  gGuesses = addGuessNumber();
+  const guessesInt = Math.trunc(gGuesses);
   guessesDisplay.innerText = `GUESSES: ${guessesInt}`;
+ 
+  
+  gClickedTile = clickedTile;
+  gClickedTile.state = true;
 
-  const clickedTileID = evt.target.id;
-  clickedTile = tilePositions.find((tile) => tile.id === clickedTileID);
+  const TILE_EL = document.getElementById(gClickedTile.id);
 
-  clickedTile.state = "true";
-
-  const TILE_EL = document.getElementById(clickedTile.id);
-
-  if (clickedTile.img !== null) {
-    TILE_EL.style.backgroundImage = `url(${clickedTile.img})`;
+  if (gClickedTile.img !== null) {
+    TILE_EL.style.backgroundImage = `url(${gClickedTile.img})`;
   }
 
-  if (previousClickedTile !== null) {
-    const PREV_TILE_EL = document.getElementById(previousClickedTile.id);
+  if (gPreviousClickedTile !== null) {
+    const PREV_TILE_EL = document.getElementById(gPreviousClickedTile.id);
     if (
-      clickedTile.img === previousClickedTile.img &&
-      clickedTile.id !== previousClickedTile.id
+      gClickedTile.img === gPreviousClickedTile.img &&
+      gClickedTile.id !== gPreviousClickedTile.id
     ) {
-      previousClickedTile.state = true;
-      clickedTile.state = true;
-      previousClickedTile = null;
-      clickedTile = null;
+      gPreviousClickedTile.state = true;
+      gClickedTile.state = true;
+      gPreviousClickedTile = null;
+      gClickedTile = null;
     } else {
       const WRONG_DISPLAY = document.getElementById("wrong");
       WRONG_DISPLAY.innerText = "WRONG";
       setTimeout(() => {
-        previousClickedTile.state = false;
-        clickedTile.state = false;
-        previousClickedTile = null;
-        clickedTile = null;
+        gPreviousClickedTile.state = false;
+        gClickedTile.state = false;
+        gPreviousClickedTile = null;
+        gClickedTile = null;
         TILE_EL.style.backgroundImage = "";
         PREV_TILE_EL.style.backgroundImage = "";
         WRONG_DISPLAY.innerText = "";
       }, 1000);
     }
   } else {
-    previousClickedTile = clickedTile;
-    clickedTile = null;
+    gPreviousClickedTile = gClickedTile;
+    gClickedTile = null;
   }
 
   let everyTileMatches = true;
   for (i = 0; i < 16; i++) {
-    if (tilePositions[i].state !== true) {
+    if (gTilePositions[i].state !== true) {
       everyTileMatches = false;
       break;
     }
@@ -194,7 +197,7 @@ function boardClickHandler(evt) {
     openYouWinModal();
     clearInterval(timer);
   }
-  if (guesses === 16.5) {
+  if (gGuesses === 16.5) {
     resetGame();
     openGameOverModal();
   }
