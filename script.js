@@ -18,7 +18,7 @@ let gGuesses;
 let gTileProperties;
 let gPreviousClickedTile = null;
 let gClickedTile = null;
-let timer;
+let gTimer;
 
 const TILES = document.querySelectorAll(".tile");
 const BUTTON = document.getElementById("actionButton");
@@ -83,7 +83,7 @@ function resetGame() {
     TILES.forEach((TILE) => {
       TILE.style.backgroundImage = "";
     });
-    clearInterval(timer);
+    clearInterval(gTimer);
   }
 }
 
@@ -101,11 +101,11 @@ function buttonClickHandler(evt) {
   resetGame();
 
   let count = 60;
-  timer = setInterval(function () {
+  gTimer = setInterval(function () {
     count--;
     countDownDisplay.innerText = `TIMER: ${count}`;
     if (count === 0) {
-      clearInterval(timer);
+      clearInterval(gTimer);
       openGameOverModal();
     }
   }, 1000);
@@ -195,7 +195,7 @@ function boardClickHandler(evt) {
   }
   if (everyTileMatches) {
     openYouWinModal();
-    clearInterval(timer);
+    clearInterval(gTimer);
   }
   if (gGuesses === 16.5) {
     resetGame();
