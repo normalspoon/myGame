@@ -1,4 +1,3 @@
-
 const PLAYER = "PLAYER";
 const TILE_IMAGES = "TILE_IMAGES";
 const MAX_GUESSES = "MAX_GUESSES";
@@ -14,7 +13,6 @@ const IMG_LIST = [
 ];
 const TILE_NUMBER = "TILE_NUMBER";
 
-
 let playerChoice;
 let tilePositions;
 let guesses;
@@ -27,34 +25,32 @@ const TILES = document.querySelectorAll(".tile");
 const BUTTON = document.getElementById("actionButton");
 const guessesDisplay = document.getElementById("attempts");
 const countDownDisplay = document.getElementById("timer");
-const MODAL_BUTTON = document.querySelector(".btn")
-const modal = document.querySelector(".modal")
-const overlay = document.querySelector(".overlay")
-
-
+const MODAL_BUTTON = document.querySelector(".btn");
+const modal = document.querySelector(".modal");
+const overlay = document.querySelector(".overlay");
 
 function modalButtonStart() {
-buttonClickHandler()
-modal.classList.add("hidden")
-overlay.classList.add("hidden")
+  buttonClickHandler();
+  modal.classList.add("hidden");
+  overlay.classList.add("hidden");
 }
 
 function openYouWinModal() {
-  modal.classList.remove("hidden")
-  overlay.classList.add("hidden")
-  const gameOverHeading = document.querySelector("h3") 
-  const gameOverText = document.querySelector("p")
-  gameOverHeading.innerText = "CONGRATS You Won!"
-  gameOverText.innerText = "Click START to play again!"
+  modal.classList.remove("hidden");
+  overlay.classList.add("hidden");
+  const gameOverHeading = document.querySelector("h3");
+  const gameOverText = document.querySelector("p");
+  gameOverHeading.innerText = "CONGRATS You Won!";
+  gameOverText.innerText = "Click START to play again!";
 }
 
 function openGameOverModal() {
-  modal.classList.remove("hidden")
-  overlay.classList.remove("hidden")
-  const gameOverHeading = document.querySelector("h3") 
-  const gameOverText = document.querySelector("p")
-  gameOverHeading.innerText = "You Lost!"
-  gameOverText.innerText = "Click START to try again!"
+  modal.classList.remove("hidden");
+  overlay.classList.remove("hidden");
+  const gameOverHeading = document.querySelector("h3");
+  const gameOverText = document.querySelector("p");
+  gameOverHeading.innerText = "You Lost!";
+  gameOverText.innerText = "Click START to try again!";
 }
 
 function populateBoard() {
@@ -65,33 +61,30 @@ function populateBoard() {
       state: "false",
       img: "",
     };
-  
+
     tilePositions.push(propertiesObject);
   }
 }
 
 populateBoard();
 
-
-
 TILES.forEach((tile) => {
   tile.addEventListener("click", boardClickHandler);
 });
 
 BUTTON.addEventListener("click", buttonClickHandler);
-MODAL_BUTTON.addEventListener("click", modalButtonStart)
-
-
+MODAL_BUTTON.addEventListener("click", modalButtonStart);
 
 function resetGame() {
   for (i = 0; i < 16; i++) {
+    guesses = 0;
     const TILES = document.querySelectorAll(".tile");
-    guesses = 0 
     guessesDisplay.innerText = `GUESSES: ${guesses}`;
     tilePositions[i].state = false;
     TILES.forEach((TILE) => {
       TILE.style.backgroundImage = "";
     });
+    clearInterval(timer);
   }
 }
 
@@ -107,19 +100,16 @@ function buttonClickHandler(evt) {
     tilePositions[i].img = imgList16.shift();
   }
   resetGame();
- 
 
-  clearInterval(timer)
   let count = 60;
-  timer = setInterval(function() {
-    count --;
+  timer = setInterval(function () {
+    count--;
     countDownDisplay.innerText = `TIMER: ${count}`;
     if (count === 0) {
       clearInterval(timer);
-      openGameOverModal()
+      openGameOverModal();
     }
   }, 1000);
-
 }
 
 function shuffle(array) {
@@ -134,18 +124,17 @@ function shuffle(array) {
   }
 }
 
-
 guesses = 0;
 function boardClickHandler(evt) {
   evt.preventDefault();
   if (evt.target.tagName !== "DIV") {
     return;
   }
-
+  
   if (clickedTile && previousClickedTile) {
     return;
   }
-  
+
 
   function addGuessNumber() {
     guesses += 0.5;
@@ -157,32 +146,29 @@ function boardClickHandler(evt) {
 
   const clickedTileID = evt.target.id;
   clickedTile = tilePositions.find((tile) => tile.id === clickedTileID);
-  
 
   clickedTile.state = "true";
 
   const TILE_EL = document.getElementById(clickedTile.id);
 
   if (clickedTile.img !== null) {
-   
     TILE_EL.style.backgroundImage = `url(${clickedTile.img})`;
   }
 
   if (previousClickedTile !== null) {
- 
     const PREV_TILE_EL = document.getElementById(previousClickedTile.id);
-    if (clickedTile.img === previousClickedTile.img && clickedTile.id !== previousClickedTile.id ) {
-
+    if (
+      clickedTile.img === previousClickedTile.img &&
+      clickedTile.id !== previousClickedTile.id
+    ) {
       previousClickedTile.state = true;
       clickedTile.state = true;
       previousClickedTile = null;
       clickedTile = null;
-
     } else {
-      const WRONG_DISPLAY = document.getElementById("wrong")
-      WRONG_DISPLAY.innerText = "WRONG"
+      const WRONG_DISPLAY = document.getElementById("wrong");
+      WRONG_DISPLAY.innerText = "WRONG";
       setTimeout(() => {
-        
         previousClickedTile.state = false;
         clickedTile.state = false;
         previousClickedTile = null;
@@ -197,23 +183,19 @@ function boardClickHandler(evt) {
     clickedTile = null;
   }
 
-  let everyTileMatches = true
+  let everyTileMatches = true;
   for (i = 0; i < 16; i++) {
     if (tilePositions[i].state !== true) {
       everyTileMatches = false;
       break;
-    } 
+    }
   }
   if (everyTileMatches) {
-    openYouWinModal()
-    clearInterval(timer)
+    openYouWinModal();
+    clearInterval(timer);
   }
   if (guesses === 16.5) {
-    resetGame()
-    openGameOverModal()
+    resetGame();
+    openGameOverModal();
   }
 }
-
-
-
-

@@ -52,7 +52,11 @@ As a player I will see a countdown timer start when I press start. If I don't co
 
 - [ ] Implement timer
 
-## Pseudocode
+## Screenshots
+![intro](/images/intro.png)
+![wrong](/images/wrong.png)
+![lose](/images/lose.png)
+
 
 
 ## Getting Started: 
